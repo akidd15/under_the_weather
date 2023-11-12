@@ -29,7 +29,7 @@ var loadSearchHistory = function() {
     }
     savedSearchHistory = JSON.parse(savedSearchHistory);
     
-    for (var i = 0; i < savedSearchHistory.lengthl i++) {
+    for (var i = 0; i < savedSearchHistory.length; i++) {
         searchHistoryList(savedSearchHistory[i]);
 
     }
@@ -50,6 +50,18 @@ var currentWeather = function(cityName) {
         .then(function(response) {
             searchHistoryList(cityname);
 
+            var currentWheatherContainer = $("#current-weather-container");
+            currentWheatherContainer.addClass("current-weather-container");
+
+            var currentTitle = $("#current-title");
+            var currentDay = moment().format("M/D/YYYY");
+            currentTitle.text(`${cityName} (${currentDay})`);
+            var currentIcon = $("#current-weather-icon");
+            currentIcon.addClass("current-weather-icon");
+            var currentIconCode = response.current.weather[0].icon;
+            currentIcon.attr("src", `https://openweathermap.org/img/wn/${currentIconCode}@2x.png`);
+            var currentTemperature = $("#current-temperature");
+            currentTemperature.text("Temperature: " + response.current.temp + "\u00B0F");
             
         })
     })
