@@ -64,8 +64,13 @@ var currentWeather = function(cityName) {
             currentTemperature.text("Temperature: " + response.current.temp + "\u00B0F");
             var currentHumidity = $("#current-humidity");
             currentHumidity.text("Humidity: " + response.current.humidity + "%");
+            var currentWindSpeed = $("#current-wind-speed");
+            currentWindSpeed.text("Wind Speed: " + response.current.wind_speed + "MPH");
+            var currentUvIndex = $("#current-uv-index");
+            currentUvIndex.text("UV Index: ");
+            var currentNumber = $("#current-number");
+            currentNumber.text(response.current.uvi);
             
-
         })
     })
 }
