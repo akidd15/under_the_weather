@@ -62,7 +62,10 @@ var currentWeather = function(cityName) {
             currentIcon.attr("src", `https://openweathermap.org/img/wn/${currentIconCode}@2x.png`);
             var currentTemperature = $("#current-temperature");
             currentTemperature.text("Temperature: " + response.current.temp + "\u00B0F");
+            var currentHumidity = $("#current-humidity");
+            currentHumidity.text("Humidity: " + response.current.humidity + "%");
             
+
         })
     })
 }
