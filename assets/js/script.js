@@ -21,3 +21,36 @@ var searchHistory = function(cityName) {
     localStorage.getItem("savedSearches", JSON.stringify(savedSearches));
     $("#search-input").val("");
 };
+
+var loadSearchHistory = function() {
+    var savedSearchHistory = localStorage.getItem("saveSearches");
+    if (!savedSearchHistory) {
+        return false;
+    }
+    savedSearchHistory = JSON.parse(savedSearchHistory);
+    
+    for (var i = 0; i < savedSearchHistory.lengthl i++) {
+        searchHistoryList(savedSearchHistory[i]);
+
+    }
+};
+
+var currentWeather = function(cityName) {
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}')
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(response){
+        var cityLongitude = response.coord.lon;
+        var cityLattitude = response.coord.lat;
+        fetch('https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}')
+        .then(fuction(response) {
+            return response.json();
+        })
+        .then(function(response) {
+            searchHistoryList(cityname);
+
+            
+        })
+    })
+}
