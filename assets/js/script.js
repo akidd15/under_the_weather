@@ -86,3 +86,34 @@ var currentWeather = function(cityName) {
     });
 
 };
+
+var fiveDayForecast = function(cityName) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(response) {
+        var cityLongitude = response.coord.lon;
+        var cityLattitude = response.coord.lat;
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(response) {
+            console.log(response);
+
+            var futureForecastTitle = $("#future-forecast-title");
+            futureForecastTitle.text("5-Day Forecast:");
+
+            for (var i = 1; i <= 5; i++) {
+                var futureCard = $("#future-card");
+                futureCard.addClass("future-card-details");
+
+                var futureDate = $("#future-date-" + i);
+                date = moment().add(i, "d").format("M/D/YYYY");
+                futureDate.text(date);
+                
+            }
+        })
+    })
+}
