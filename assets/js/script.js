@@ -70,7 +70,19 @@ var currentWeather = function(cityName) {
             currentUvIndex.text("UV Index: ");
             var currentNumber = $("#current-number");
             currentNumber.text(response.current.uvi);
-            
+
+            if (response.current.uvi <= 2) {
+                currentNumber.addClass("low");
+            } else if (response.current.uvi >= 3 && response.current.uvi <= 7) {
+                currentNumber.addClass("medium");
+            } else {
+                currentNumber.addClass("high");
+            }
         })
     })
-}
+    .catch(function(err) {
+        $("#search-input").val("");
+        alert("We could not find the city you search for. Try searching for a valid city")
+    });
+
+};
