@@ -112,8 +112,16 @@ var fiveDayForecast = function(cityName) {
                 var futureDate = $("#future-date-" + i);
                 date = moment().add(i, "d").format("M/D/YYYY");
                 futureDate.text(date);
-                
+
+                var futureIcon = $("#future-icon-" + i);
+                futureIcon.addClass("future-icon");
+                var futureIconCode = response.daily[i].weather[0].icon;
+                futureIcon.attr("src", `https://openweathermap.org/img/wn/${futureIconCode}@2x.png`);
+                var futureTemp = $("#future-temp-" +i);
+                futureTemp.text("Temp: " + response.daily[i].temp.day + " \u00B0F");
+                var futureHumidity = $("#future-humidity-" + i);
+                futureHumidity.text("Humidity: " + response.daily[i].humidity + "%");
             }
         })
     })
-}
+};
