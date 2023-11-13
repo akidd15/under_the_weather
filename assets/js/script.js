@@ -44,8 +44,9 @@ var currentWeather = function(cityName) {
         var cityLongitude = response.coord.lon;
         var cityLattitude = response.coord.lat;
         fetch('https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}')
+        
         .then(fuction(response) {
-            return response.json();
+            return response.json()
         })
         .then(function(response) {
             searchHistoryList(cityname);
@@ -125,3 +126,28 @@ var fiveDayForecast = function(cityName) {
         })
     })
 };
+
+$("#search-form").on("submit", function() {
+event.preventDefault();
+
+var cityName = $("#search-input").val();
+if (cityName === "" || cityName === null) {
+    alert("Please enter name of a city.");
+    event.preventDefault();
+} else {
+    currentWeather(cityName);
+    fiveDayForecast(cityName);
+}
+});
+
+$("#search-history-container").on("click", "p", function() {
+    var previousCityName = $(this).text();
+    currentWeather(previousCityName);
+    fiveDayForecast(previousCityName);
+
+    var previousCityClicked = $(this);
+    previousCityClicked.remove();
+});
+
+loadSearchHistory();
+
