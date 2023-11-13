@@ -1,30 +1,38 @@
 
 .future-forecast-container {
     margin: 5px 20px 0 20px;
+    color:blue
+    
 }
 
 .future-forecast-title {
     font-size: 27px;
+    color:orange
 }
 
 .future-card-details {
     width: 17%;
     padding: 7px 0 0 7px;
+    color:blue;
+    
 }
 
 .future-date {
     font-size: 23px;
+    color:orange;
 }
 
 .future-icon {
     width: 50px;
     height: 50px;
     margin: 0 0 0 15px;
+    color:blue
 }
 
 .future-temp, .future-humidity {
     font-size: 17px;
     font-weight: 200;
+    color:blue
 }
 
 
@@ -85,10 +93,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: lightgray;
 }
 
 .h1-container {
     padding: 4px;
+    background-color: lightgrey;
+    padding-right: 10px;
 }
 
 .form-container {
@@ -141,3 +152,12 @@
     margin: 20px 0 0 20px;
     padding: 0 0 12px 0;
 }
+
+h2 {
+    color:navy;
+}
+
+h1 {
+    color:orange;
+}
+
