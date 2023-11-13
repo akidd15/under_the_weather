@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang ="en">
     <head>
-        <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- standard bootstrap stylesheet -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- style sheet for save icon -->
-    <link 
-    rel="stylesheet" 
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css">
-    <link rel="stylesheet" href="./Assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="icon" sizes="192x192" href="path/to/icon.png">
+
     <title>Weather Dashboard</title>
     </head>
 
@@ -39,7 +36,7 @@
                                         <input type="text" id="search-input" name="search-input" class="search-input rounded">
                                     </div>
                                     <div class="col-sm-4 p-0">
-                                        <button type="submit" class="btn bg-primary rounded search-button">
+                                        <button>search </button type="submit" class="btn bg-primary rounded search-button">
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
                                     </div>
@@ -71,12 +68,9 @@
                         <p class="current-uv-index" id="current-uv-index"></p>
                         <p class="current-number rounded" id="current-number"></p>
                     </div>
-                    <!-- 5 day forecast -->
                     <div class="row future-forecast-container d-block">
-                        <!-- 5 day forecast title-->
                         <h2 class="future-forecast-title" id="future-forecast-title"></h2>
                         <div id="forecasts-cards-container" class="forecasts-cards-container d-flex justify-content-between">
-                            <!-- future day forecard card -->
                             <div class="future-card bg-primary rounded">
                                 <p class="future-date" id="future-date-1"></p>
                                 <img id="future-icon-1" src="" alt="">

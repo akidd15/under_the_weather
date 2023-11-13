@@ -10,46 +10,62 @@ var searchHistory = function(cityName) {
 
     var searchEntryContainer = $("<div>");
     searchEntryContainer.addClass("past-search-container");
-    searchEntryContainer.append(searchEntryContainer);
+    searchEntryContainer.append(searchHistoryEntry);
 
-    if (savedSearches.length > 0){
+    $("#search-history-container").append(searchEntryContainer);
+
+    if (savedSearches.length > 0) {
         var previousSavedSearches = localStorage.getItem("savedSearches")
         savedSearches = JSON.parse(previousSavedSearches);
     }
 
     savedSearches.push(cityName);
-    localStorage.getItem("savedSearches", JSON.stringify(savedSearches));
+    localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
     $("#search-input").val("");
 };
 
 var loadSearchHistory = function() {
-    var savedSearchHistory = localStorage.getItem("saveSearches");
+    var savedSearchHistory = localStorage.getItem("savedSearches");
     if (!savedSearchHistory) {
         return false;
     }
     savedSearchHistory = JSON.parse(savedSearchHistory);
     
     for (var i = 0; i < savedSearchHistory.length; i++) {
-        searchHistoryList(savedSearchHistory[i]);
+        displaySearchHistoryList(savedSearchHistory[i]);
 
     }
 };
 
+var displaySearchHistory = function(cityName) {
+    var searchHistoryEntry = $("<p>");
+    searchHistoryEntry.addClass("past-search");
+    searchHistoryEntry.text(cityName);
+
+    var searchEntryContainer = $("<div>");
+    searchEntryContainer.addClass("past-search-container");
+    searchEntryContainer.append(searchHistoryEntry);
+
+    $("#search-history-container").append(searchEntryContainer);
+};
+
+
+
 var currentWeather = function(cityName) {
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}')
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
     .then(function(response) {
         return response.json();
     })
-    .then(function(response){
-        var cityLongitude = response.coord.lon;
-        var cityLattitude = response.coord.lat;
-        fetch('https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}')
+    .then(function(response) {
+        var cityLon = response.coord.lon;
+        var cityLat = response.coord.lat;
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
         
-        .then(fuction(response) {
-            return response.json()
+        .then(function(response) {
+            return response.json();
         })
         .then(function(response) {
-            searchHistoryList(cityname);
+            searchHistory(cityName);
 
             var currentWheatherContainer = $("#current-weather-container");
             currentWheatherContainer.addClass("current-weather-container");
@@ -94,8 +110,8 @@ var fiveDayForecast = function(cityName) {
         return response.json();
     })
     .then(function(response) {
-        var cityLongitude = response.coord.lon;
-        var cityLattitude = response.coord.lat;
+        var cityLon = response.coord.lon;
+        var cityLat = response.coord.lat;
         fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
         .then(function(response) {
             return response.json();
@@ -111,7 +127,7 @@ var fiveDayForecast = function(cityName) {
                 futureCard.addClass("future-card-details");
 
                 var futureDate = $("#future-date-" + i);
-                date = moment().add(i, "d").format("M/D/YYYY");
+                var date = moment().add(i, "d").format("M/D/YYYY");
                 futureDate.text(date);
 
                 var futureIcon = $("#future-icon-" + i);
@@ -127,7 +143,7 @@ var fiveDayForecast = function(cityName) {
     })
 };
 
-$("#search-form").on("submit", function() {
+$("#search-form").on("submit", function(event) {
 event.preventDefault();
 
 var cityName = $("#search-input").val();
@@ -149,5 +165,7 @@ $("#search-history-container").on("click", "p", function() {
     previousCityClicked.remove();
 });
 
-loadSearchHistory();
+$(document).ready(function() {
+    loadSearchHistory();
+});
 
